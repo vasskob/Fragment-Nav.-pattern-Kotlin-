@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">FragmentNawPattern</string>
+    <string name="bt_new_fragment">New Fragment</string>
+    <string name="first_root_fr_title">%s Root Fragment</string>
+</resources>

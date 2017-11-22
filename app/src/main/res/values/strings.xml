@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">FragmentNawPattern</string>
     <string name="bt_new_fragment">New Fragment</string>
-    <string name="first_root_fr_title">%s Root Fragment</string>
+    <string name="root_fr_title">%s Root Fragment \ninstance %d</string>
+    <string name="child_fr_title">%s Child Fragment</string>
 </resources>

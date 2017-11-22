@@ -28,14 +28,7 @@ class MainActivity : AppCompatActivity(),
         setContentView(R.layout.activity_main)
 
         initTabs()
-        //openFragment(0)
-        mNavController = FragNavController
-                .newBuilder(savedInstanceState, supportFragmentManager, R.id.fragment_container)
-                .transactionListener(this)
-                .rootFragmentListener(this, 3)
-                .popStrategy(FragNavTabHistoryController.UNIQUE_TAB_HISTORY)
-                .switchController(this)
-                .build()
+        initNavController(savedInstanceState)
     }
 
     private fun initTabs() {
@@ -54,6 +47,16 @@ class MainActivity : AppCompatActivity(),
 
     override fun onTabSelect(position: Int) {
         mNavController?.switchTab(position)
+    }
+
+    private fun initNavController(savedInstanceState: Bundle?) {
+        mNavController = FragNavController
+                .newBuilder(savedInstanceState, supportFragmentManager, R.id.fragment_container)
+                .transactionListener(this)
+                .rootFragmentListener(this, 3)
+                .popStrategy(FragNavTabHistoryController.UNIQUE_TAB_HISTORY)
+                .switchController(this)
+                .build()
     }
 
     override fun onBackPressed() {
@@ -77,13 +80,6 @@ class MainActivity : AppCompatActivity(),
             return true
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    private fun getPositionTitle(position: Int): String = when (position) {
-        0 -> FIRST
-        1 -> SECOND
-        2 -> THIRD
-        else -> FIRST
     }
 
     companion object {
@@ -112,7 +108,13 @@ class MainActivity : AppCompatActivity(),
         INDEX_SECOND -> RootFragment.newInstance(getPositionTitle(tl_nav_bar.currentTab), 0)
         INDEX_THIRD -> RootFragment.newInstance(getPositionTitle(tl_nav_bar.currentTab), 0)
         else -> throw IllegalStateException("Need to send an index that we know")
+    }
 
+    private fun getPositionTitle(position: Int): String = when (position) {
+        0 -> FIRST
+        1 -> SECOND
+        2 -> THIRD
+        else -> FIRST
     }
 
     override fun pushFragment(fragment: Fragment) {

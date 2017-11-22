@@ -10,8 +10,8 @@ import android.view.ViewGroup
 open class BaseFragment : Fragment() {
 
     companion object {
-        const val ARGS_INSTANCE = "args instance"
         const val ARGS_TITLE = "args title"
+        const val ARGS_INSTANCE = "args instance"
     }
 
     var mInstance: Int = 0
@@ -33,9 +33,8 @@ open class BaseFragment : Fragment() {
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        if (context is FragmentNavigation) {
-            mFragmentNavigation = context
-        }
+        if (context is FragmentNavigation) mFragmentNavigation = context
+        else throw ClassCastException(context.toString() + " must implement FragmentNavigation")
     }
 
     interface FragmentNavigation {

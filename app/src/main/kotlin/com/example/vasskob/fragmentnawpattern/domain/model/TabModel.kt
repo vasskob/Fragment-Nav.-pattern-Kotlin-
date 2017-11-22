@@ -1,8 +1,8 @@
-package com.example.vasskob.fragmentnawpattern
+package com.example.vasskob.fragmentnawpattern.domain.model
 
 import com.flyco.tablayout.listener.CustomTabEntity
 
-class TabEntity(private val title: String, private val selectedIcon: Int, private val unselectedIcon: Int) : CustomTabEntity {
+class TabModel(private val title: String, private val selectedIcon: Int, private val unselectedIcon: Int) : CustomTabEntity {
 
     override fun getTabUnselectedIcon(): Int = unselectedIcon
 

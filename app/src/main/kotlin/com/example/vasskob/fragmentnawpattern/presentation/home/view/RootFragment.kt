@@ -1,7 +1,10 @@
-package com.example.vasskob.fragmentnawpattern
+package com.example.vasskob.fragmentnawpattern.presentation.home.view
 
 import android.graphics.Color
 import android.os.Bundle
+import com.example.vasskob.fragmentnawpattern.R
+import com.example.vasskob.fragmentnawpattern.presentation.common.BaseFragment
+
 import kotlinx.android.synthetic.main.fragment_root.*
 import java.util.*
 
@@ -21,7 +24,7 @@ class RootFragment : BaseFragment() {
 
     override fun onStart() {
         super.onStart()
-
+        // showActionBar()
         first_fr_container.setBackgroundColor(getRandomColor())
         bt_new_fragment.setOnClickListener({
             mFragmentNavigation.pushFragment(RootFragment.newInstance(mTitle, mInstance + 1))

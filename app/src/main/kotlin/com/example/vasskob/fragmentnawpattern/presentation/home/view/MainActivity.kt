@@ -1,9 +1,13 @@
-package com.example.vasskob.fragmentnawpattern
+package com.example.vasskob.fragmentnawpattern.presentation.home.view
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
+import com.example.vasskob.fragmentnawpattern.R
+
+import com.example.vasskob.fragmentnawpattern.domain.model.TabModel
+import com.example.vasskob.fragmentnawpattern.presentation.common.BaseFragment
 import com.flyco.tablayout.listener.CustomTabEntity
 import com.flyco.tablayout.listener.OnTabSelectListener
 import com.ncapdevi.fragnav.FragNavController
@@ -33,9 +37,9 @@ class MainActivity : AppCompatActivity(),
 
     private fun initTabs() {
         val tabs = ArrayList<CustomTabEntity>()
-        tabs.add(TabEntity(FIRST, R.drawable.ic_camera_sel, R.drawable.ic_camera))
-        tabs.add(TabEntity(SECOND, R.drawable.ic_taxi_sel, R.drawable.ic_taxi))
-        tabs.add(TabEntity(THIRD, R.drawable.ic_laptop_sel, R.drawable.ic_laptop))
+        tabs.add(TabModel(FIRST, R.drawable.ic_camera_sel, R.drawable.ic_camera))
+        tabs.add(TabModel(SECOND, R.drawable.ic_taxi_sel, R.drawable.ic_taxi))
+        tabs.add(TabModel(THIRD, R.drawable.ic_laptop_sel, R.drawable.ic_laptop))
         tl_nav_bar.setTabData(tabs)
 
         tl_nav_bar.setOnTabSelectListener(this)
@@ -105,7 +109,7 @@ class MainActivity : AppCompatActivity(),
 
     override fun getRootFragment(p0: Int): Fragment = when (p0) {
         INDEX_FIRST -> RootFragment.newInstance(getPositionTitle(tl_nav_bar.currentTab), 0)
-        INDEX_SECOND -> RootFragment.newInstance(getPositionTitle(tl_nav_bar.currentTab), 0)
+        INDEX_SECOND -> ChildTabFragment.newInstance(getPositionTitle(tl_nav_bar.currentTab), 0)
         INDEX_THIRD -> RootFragment.newInstance(getPositionTitle(tl_nav_bar.currentTab), 0)
         else -> throw IllegalStateException("Need to send an index that we know")
     }

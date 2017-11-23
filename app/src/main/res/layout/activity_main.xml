@@ -15,14 +15,17 @@
     <com.flyco.tablayout.CommonTabLayout
         android:id="@+id/tl_nav_bar"
         android:layout_width="match_parent"
-        android:layout_height="54dp"
+        android:layout_height="@dimen/bottom_tab_height"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimary"
+        android:background="@color/color_tab_bg"
         app:tl_iconHeight="23dp"
         app:tl_iconWidth="23dp"
         app:tl_indicator_height="0dp"
-        app:tl_textSelectColor="@color/colorAccent"
-        app:tl_textUnselectColor="#FFFFFF"
-        app:tl_textsize="12sp"/>
+        app:tl_textSelectColor="@color/color_tab_selected"
+        app:tl_textUnselectColor="@color/color_tab"
+        app:tl_textsize="12sp"
+        app:tl_underline_color="@color/color_tab"
+        app:tl_underline_gravity="TOP"
+        app:tl_underline_height="1dp"/>
 
 </RelativeLayout>

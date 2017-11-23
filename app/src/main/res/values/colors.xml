@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+
+    <!--COMMON-->
+    <color name="colorPrimary">#FAFAFA</color>
+    <color name="colorPrimaryDark">#F0F0F0</color>
+    <color name="colorAccent">#262626</color>
+
     <color name="fragment_text_color">#000000</color>
+
+    <!--TABS-->
+    <color name="color_tab_bg">@color/colorPrimary</color>
+    <color name="color_tab">#9E9E9E</color>
+    <color name="color_tab_selected">@color/colorAccent</color>
+    <color name="tools_bg_color">#B0BEC5</color>
+
 </resources>

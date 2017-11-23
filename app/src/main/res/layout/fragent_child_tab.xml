@@ -1,34 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:background="@color/colorAccent">
-
-    <com.flyco.tablayout.SlidingTabLayout
-        android:id="@+id/stl_child_nav_bar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/tab_height"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
-        app:tl_tab_width="211dp"
-        android:background="@color/colorPrimary"
-        app:tl_indicator_gravity="BOTTOM"
-        app:tl_indicator_height="2dp"
-        app:tl_indicator_width_equal_title="false"
-        app:tl_textAllCaps="true"
-        app:tl_textBold="SELECT"
-        app:tl_textSelectColor="@color/colorAccent"
-        app:tl_textUnselectColor="#FFFFFF"
-        app:tl_textsize="16sp"/>
+    tools:background="@color/tools_bg_color">
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/vp_child_fragment"
+        android:id="@+id/vp_home_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-</RelativeLayout>
+    <android.support.design.widget.TabLayout
+        android:id="@+id/sliding_tabs"
+        style="@style/HomeTabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/top_tab_height"/>
+
+</FrameLayout>

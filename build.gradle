@@ -42,6 +42,5 @@ ext {
     timberVersion = '4.5.1'
     fragNavVersion = '2.4.0'
     tabLayoutVersion = '2.1.2@aar'
-
 }
 

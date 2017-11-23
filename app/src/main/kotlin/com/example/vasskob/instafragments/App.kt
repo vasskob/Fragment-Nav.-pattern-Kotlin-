@@ -1,4 +1,4 @@
-package com.example.vasskob.fragmentnawpattern
+package com.example.vasskob.instafragments
 
 import android.app.Application
 import timber.log.Timber

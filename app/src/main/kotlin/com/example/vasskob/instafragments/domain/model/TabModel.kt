@@ -1,4 +1,4 @@
-package com.example.vasskob.fragmentnawpattern.domain.model
+package com.example.vasskob.instafragments.domain.model
 
 import com.flyco.tablayout.listener.CustomTabEntity
 

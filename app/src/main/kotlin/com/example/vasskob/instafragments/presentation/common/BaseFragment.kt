@@ -1,13 +1,12 @@
-package com.example.vasskob.fragmentnawpattern.presentation.common
+package com.example.vasskob.instafragments.presentation.common
 
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.vasskob.fragmentnawpattern.R
+import com.example.vasskob.instafragments.R
 
 open class BaseFragment : Fragment() {
 
@@ -17,8 +16,8 @@ open class BaseFragment : Fragment() {
     }
 
     var mInstance: Int = 0
-    var mTitle: String = ""
 
+    lateinit var mTitle: String
     lateinit var mFragmentNavigation: FragmentNavigation
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,15 +38,8 @@ open class BaseFragment : Fragment() {
         else throw ClassCastException(context.toString() + " must implement FragmentNavigation")
     }
 
-    protected fun showActionBar() {
-        (activity as AppCompatActivity).supportActionBar!!.show()
-    }
-
-    protected fun hideActionBar() {
-        (activity as AppCompatActivity).supportActionBar!!.hide()
-    }
-
     interface FragmentNavigation {
         fun pushFragment(fragment: Fragment)
+        fun onBackPressed()
     }
 }

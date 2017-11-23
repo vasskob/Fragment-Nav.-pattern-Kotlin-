@@ -1,13 +1,11 @@
-package com.example.vasskob.fragmentnawpattern.presentation.home.view
+package com.example.vasskob.instafragments.presentation.home.view
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
-import android.view.MenuItem
-import com.example.vasskob.fragmentnawpattern.R
-
-import com.example.vasskob.fragmentnawpattern.domain.model.TabModel
-import com.example.vasskob.fragmentnawpattern.presentation.common.BaseFragment
+import com.example.vasskob.instafragments.R
+import com.example.vasskob.instafragments.domain.model.TabModel
+import com.example.vasskob.instafragments.presentation.common.BaseFragment
 import com.flyco.tablayout.listener.CustomTabEntity
 import com.flyco.tablayout.listener.OnTabSelectListener
 import com.ncapdevi.fragnav.FragNavController
@@ -21,11 +19,20 @@ import java.util.*
 class MainActivity : AppCompatActivity(),
         OnTabSelectListener,
         FragNavSwitchController,
-        FragNavController.TransactionListener,
         FragNavController.RootFragmentListener,
         BaseFragment.FragmentNavigation {
 
-    private var mNavController: FragNavController? = null
+    companion object {
+        const val INDEX_FIRST = FragNavController.TAB1
+        const val INDEX_SECOND = FragNavController.TAB2
+        const val INDEX_THIRD = FragNavController.TAB3
+        const val TAB_COUNT = 3
+    }
+
+    private lateinit var firstTabTitle: String
+    private lateinit var secondTabTitle: String
+    private lateinit var thirdTabTitle: String
+    private lateinit var mNavController: FragNavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,77 +40,59 @@ class MainActivity : AppCompatActivity(),
 
         initTabs()
         initNavController(savedInstanceState)
+        restoreTabPosition(savedInstanceState)
     }
 
     private fun initTabs() {
+        initTabTitles()
         val tabs = ArrayList<CustomTabEntity>()
-        tabs.add(TabModel(FIRST, R.drawable.ic_camera_sel, R.drawable.ic_camera))
-        tabs.add(TabModel(SECOND, R.drawable.ic_taxi_sel, R.drawable.ic_taxi))
-        tabs.add(TabModel(THIRD, R.drawable.ic_laptop_sel, R.drawable.ic_laptop))
+        tabs.add(TabModel(firstTabTitle, R.drawable.ic_home_sel, R.drawable.ic_home))
+        tabs.add(TabModel(secondTabTitle, R.drawable.ic_heart_sel, R.drawable.ic_heart))
+        tabs.add(TabModel(thirdTabTitle, R.drawable.ic_camera_sel, R.drawable.ic_camera))
         tl_nav_bar.setTabData(tabs)
-
         tl_nav_bar.setOnTabSelectListener(this)
     }
 
-    override fun onTabReselect(position: Int) {
-        mNavController?.clearStack()
+    private fun initTabTitles() {
+        firstTabTitle = getString(R.string.first_tab_title)
+        secondTabTitle = getString(R.string.second_tab_title)
+        thirdTabTitle = getString(R.string.third_tab_title)
     }
 
     override fun onTabSelect(position: Int) {
-        mNavController?.switchTab(position)
+        Timber.d(" onTabSelect")
+        mNavController.switchTab(position)
+    }
+
+    override fun onTabReselect(position: Int) {
+        mNavController.clearStack()
     }
 
     private fun initNavController(savedInstanceState: Bundle?) {
         mNavController = FragNavController
                 .newBuilder(savedInstanceState, supportFragmentManager, R.id.fragment_container)
-                .transactionListener(this)
-                .rootFragmentListener(this, 3)
+                .rootFragmentListener(this, TAB_COUNT)
                 .popStrategy(FragNavTabHistoryController.UNIQUE_TAB_HISTORY)
                 .switchController(this)
                 .build()
     }
 
-    override fun onBackPressed() {
-        if (!mNavController?.popFragment()!!) {
-            super.onBackPressed()
+    private fun restoreTabPosition(savedInstanceState: Bundle?) {
+        if (savedInstanceState == null) {
+            tl_nav_bar.currentTab = INDEX_FIRST
         }
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
-        if (mNavController != null && outState != null) {
-            mNavController!!.onSaveInstanceState(outState)
+        if (outState != null) {
+            mNavController.onSaveInstanceState(outState)
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        val id = item!!.itemId
-
-        if (id == android.R.id.home) {
-            mNavController?.popFragment()
-            return true
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-    companion object {
-        const val FIRST = "First"
-        const val SECOND = "Second"
-        const val THIRD = "Third"
-        const val INDEX_FIRST = FragNavController.TAB1
-        const val INDEX_SECOND = FragNavController.TAB2
-        const val INDEX_THIRD = FragNavController.TAB3
-    }
-
-    override fun onFragmentTransaction(p0: Fragment?, p1: FragNavController.TransactionType?) {
-        if (supportActionBar != null && mNavController != null) {
-            supportActionBar!!.setDisplayHomeAsUpEnabled(!mNavController!!.isRootFragment)
-        }
-    }
-
-    override fun onTabTransaction(p0: Fragment?, p1: Int) {
-        if (supportActionBar != null && mNavController != null) {
-            supportActionBar!!.setDisplayHomeAsUpEnabled(!mNavController!!.isRootFragment)
+    override fun onBackPressed() {
+        if (!mNavController.popFragment()) {
+            super.onBackPressed()
         }
     }
 
@@ -115,19 +104,20 @@ class MainActivity : AppCompatActivity(),
     }
 
     private fun getPositionTitle(position: Int): String = when (position) {
-        0 -> FIRST
-        1 -> SECOND
-        2 -> THIRD
-        else -> FIRST
+        INDEX_FIRST -> firstTabTitle
+        INDEX_SECOND -> secondTabTitle
+        INDEX_THIRD -> thirdTabTitle
+        else -> firstTabTitle
     }
 
     override fun pushFragment(fragment: Fragment) {
-        mNavController?.pushFragment(fragment)
+        mNavController.pushFragment(fragment)
     }
 
     override fun switchTab(p0: Int, p1: FragNavTransactionOptions?) {
         tl_nav_bar.currentTab = p0
-        Timber.d(" switchTab = " + p0)
+        onTabSelect(p0)
+        Timber.d(" switchTab = $p0 FrTrans = $p1")
     }
 }
 
